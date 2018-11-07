@@ -3,5 +3,11 @@ window.onload = function(){
 };
 
 function displayID(id){
-	alert(id);
+	var cavas = document.getElementById("textBox");
+	cavas.innerHTML = id;
+}
+
+function makeIdAppear(id){
+	var cavas = document.getElementById("textBox");
+	cavas.innerHTML = id;
 }
