@@ -1,0 +1,13 @@
+.mainContent{
+	display:grid;
+	position:relative;
+	grid-template-columns:75% 25%;
+}
+.mainText{
+	background-color:grey;
+	position:relative;
+}
+.sideBar{
+	background-color:pink;
+	position:relative;
+}
