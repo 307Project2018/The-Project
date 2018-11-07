@@ -1,14 +1,45 @@
 .board{
 	position:relative;
 	display:grid;
-	width:80%;
-	grid-template-columns:auto auto auto auto auto auto auto auto;
+	grid-template-columns:12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+	grid-template-rows:12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+	padding:0%;
+	height:80%;
 }
 .boardSquareB{
 	background-color:yellow;
 	border:2px solid black;
+	padding:0%;
 }
 .boardSquareW{
 	background-color:blue;
 	border:2px solid black;
+	padding:0%;
+
+}
+.interface{
+	display:grid;
+	grid-template-columns:auto;
+	background-color:black;
+	position:relative;
+}
+.boardNInterface{
+	display:grid;
+	position:relative;
+	grid-template-columns: 80% 20%;
+	grid-template-rows:100;
+	grid-gap:0px;
+}
+.playerStatus{
+	display:grid;
+	position:relative;
+	width:100%;
+	grid-template-columns: 50% 50%;
+}
+body{
+	margin:0px;
+}
+.textBox{
+	position:relative;
+	background-color:white;
 }
