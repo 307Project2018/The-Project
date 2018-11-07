@@ -1,0 +1,14 @@
+.board{
+	position:relative;
+	display:grid;
+	width:80%;
+	grid-template-columns:auto auto auto auto auto auto auto auto;
+}
+.boardSquareB{
+	background-color:yellow;
+	border:2px solid black;
+}
+.boardSquareW{
+	background-color:blue;
+	border:2px solid black;
+}
