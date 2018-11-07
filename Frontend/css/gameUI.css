@@ -1,8 +1,10 @@
 .board{
 	position:relative;
-	display:inline-grid;
+	display:grid;
 	grid-template-columns:12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
-	grid-template-rows:10% 10% 10% 10% 10% 10% 10% 10%;
+	grid-template-rows:12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+	padding:0%;
+	height:80%;
 }
 .boardSquareB{
 	background-color:yellow;
@@ -16,6 +18,8 @@
 
 }
 .interface{
+	display:grid;
+	grid-template-columns:auto;
 	background-color:black;
 	position:relative;
 }
@@ -24,6 +28,7 @@
 	position:relative;
 	grid-template-columns: 80% 20%;
 	grid-template-rows:100;
+	grid-gap:0px;
 }
 .playerStatus{
 	display:grid;
@@ -31,6 +36,10 @@
 	width:100%;
 	grid-template-columns: 50% 50%;
 }
+body{
+	margin:0px;
+}
 .textBox{
+	position:relative;
 	background-color:white;
 }
