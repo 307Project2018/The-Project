@@ -12,7 +12,7 @@ body{
 }
 .menuBar{
 	display:grid;
-	grid-template-columns:auto auto auto auto auto;
+	grid-template-columns:auto auto auto auto auto auto;
 	grid-column-gap:0px;
 	border-bottom:2px solid black;
 	text-align:center;
