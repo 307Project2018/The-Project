@@ -1,6 +1,7 @@
 <html>
 	<head>
 	<link rel="stylesheet" type="text/css" href="../css/gameUI.css">
+	 <script src="../javascript/gameUI.js"></script> 
 	</head>
 	
 	<body>
@@ -11,7 +12,7 @@
 		</div>
 		<div class="boardNInterface">
 			<div class="board">
-				<canvas id="00" class="boardSquareB"></canvas>
+				<canvas id="00" class="boardSquareB" onclick="displayID(this.id)" onmouseover="displayID(this.id)"></canvas>
 				<canvas id="10" class="boardSquareW"></canvas>
 				<canvas id="20" class="boardSquareB"></canvas>
 				<canvas id="30" class="boardSquareW"></canvas>
