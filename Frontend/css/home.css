@@ -1,7 +1,9 @@
 .mainContent{
+	padding-right:0%;
 	display:grid;
 	position:relative;
-	grid-template-columns:75% 25%;
+	grid-template-columns:70% 23%;
+	grid-gap:2%
 }
 .mainText{
 	background-color:grey;
