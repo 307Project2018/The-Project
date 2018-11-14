@@ -5,8 +5,17 @@ window.onload = function(){
 			var cell = document.createElement("div");
 			cell.className = "square";
 			cell.innerText = i;
+			cell.id = "cell" + i;
+			cell.setAttribute("onclick","changeUI(this.id)");
 			grid.appendChild(cell);
 		}
 	}
 	makeCollection();
 };
+
+function changeUI(id){
+	document.getElementById("nameField").innerHTML = id;
+	document.getElementById("pictureField").innerHTML = id;
+	document.getElementById("movesetField").innerHTML = id;
+	document.getElementById("hpattField").innerHTML = id;
+}
