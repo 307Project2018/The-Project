@@ -1,0 +1,32 @@
+Comp307 # main project folder
+	Comp307 # main project subfolder
+		__init__.py # comes as default
+		settings.py # need to change
+		urls.py # need to change, rename urls_main.py to urls.py and put here
+		wsgi.py # comes as default
+	TeraChess # TeraChess subfolder
+		migrations
+			__init__.py # comes as default
+		static
+			TeraChess
+				{all the .css and .js files go here}
+		templates
+			TeraChess
+				html
+					{html files go here}
+		__init__.py # comes as default
+		admin.py # need to change
+		apps.py # comes as default
+		models.py # need to change. the database structure
+		test.py # comes as default
+		urls.py # need to change. what url is mapped to what view
+		views.py # need to change. determines what database objects are send to what template
+		venv # library root, comes as default
+		db.sqlite3 # comes as default
+		manage.py # comes as default
+
+NOTE: some of the code may not work at the moment since I am in the process of changing the database structure. That is, instead of having Pieces as part of PieceSet, I now have Pieces and PieceInstances. This way users create PieceInstances to add to their PieceSets instead of adding Pieces themselves. 
+
+
+
+
