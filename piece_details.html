@@ -1,0 +1,26 @@
+image:<img src="{{ piece_instance.piece.picture }}" alt="{{ piece_instance.piece.name }}">
+<br>
+piece name:{{ piece_instance.piece.name }}
+<br>
+piece id: {{ piece_instance.piece.id }}
+<br>
+piece instance name: {{ piece_instance.name }}
+<br>
+piece instance id: {{ piece_instance.id }}
+<br>
+piece set: {{ piece_instance.piece_set }}
+<br>
+piece order: {{ piece_instance.order }}
+<br>
+Position: {% if piece_instance.piece.front == True %}
+    Front Row
+{% endif %}
+{% if piece_instance.piece.front == False %}
+    Back Row
+{% endif %}
+<br>
+<br>
+
+<a href="/TeraChess/loginSignUp"> Return to Piece-Sets</a>
+<br>
+<a href="/TeraChess/Piece/add"> Add another piece</a>

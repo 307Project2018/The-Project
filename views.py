@@ -1,8 +1,9 @@
-
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from .models import PieceSet, Piece, Player
+from .models import PieceSet, Piece, Player, PieceInstance
 from django.http import Http404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core import serializers
 
 
 def account(request):
@@ -40,15 +41,15 @@ def loginSignUp(request):
 def pieces(request, piece_set_id):
     try:
         current_set = PieceSet.objects.get(pk=piece_set_id)
-        my_pieces = current_set.piece_set.all()
+        my_pieces = current_set.pieceinstance_set.all()
     except PieceSet.DoesNotExist:
         raise Http404("PieceSet does not exist")
     return render(request, 'TeraChess/html/pieces.html', {'pieces': my_pieces})
 
 
 def piece_details(request, piece_id):
-        current_piece = Piece.objects.get(pk=piece_id)
-        return render(request, 'TeraChess/html/piece_details.html', {'piece': current_piece})
+        current_piece = PieceInstance.objects.get(pk=piece_id)
+        return render(request, 'TeraChess/html/piece_details.html', {'piece_instance': current_piece})
 
 
 def play(request):
@@ -62,6 +63,25 @@ def template(request):
 class PieceSetCreate(CreateView):
     model = PieceSet
     fields = ['name']
+
+
+def PieceSetDelete(request, piece_set_id):
+    piece_set = PieceSet.objects.get(pk=piece_set_id)
+    piece_set.delete()
+    return render(request, 'TeraChess/html/pieceset_confirm_delete.html', {'piece_set':piece_set})
+
+
+def deletePieceSet(request):
+    all_pieces = PieceSet.objects.all()
+    context = {
+        'all_pieces': all_pieces
+    }
+    return render(request, 'TeraChess/html/delete_pieceset.html', context)
+
+
+class PieceInstanceCreate(CreateView):
+    model = PieceInstance
+    fields = ['piece', 'piece_set', 'name', 'order']
 
 
 

@@ -12,6 +12,7 @@ Comp307 # main project folder
 				{all the .css and .js files go here}
 		templates
 			TeraChess
+				{html files ending with _form go here}
 				html
 					{html files go here}
 		__init__.py # comes as default

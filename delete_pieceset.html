@@ -1,0 +1,13 @@
+
+{% if all_pieces %}
+    Clicking on any of these links will permanently remove the Piece-Set as well as all the Pieces it contains. <br>
+Do so with caution.<br>
+    {% for piece_set in all_pieces %}
+        <a  href = "/TeraChess/PieceSet/delete/{{ piece_set.id }}">
+            {{ piece_set.name }}</a><br>
+    {% endfor %}
+    <br>
+
+{% else %}
+    There are no Piece-Sets to delete.
+{% endif %}
