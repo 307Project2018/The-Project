@@ -1,22 +1,23 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 
 
 class Player(models.Model):
-    username = models.CharField(max_length=100, default="")
-    password = models.CharField(max_length=100, default="")
+    username = models.CharField(max_length=100, default="Enter Username Here")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default="", related_name='profile')
 
     def __str__(self):
         return self.username
 
 
 class PieceSet(models.Model):
-    name = models.CharField(max_length=100, default="")
-    user = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=100, default="", unique=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True )
 
     def get_absolute_url(self):
-        return reverse('loginSignUp')
+        return reverse('collection')
 
     def __str__(self):
         return self.name
@@ -42,3 +43,4 @@ class PieceInstance(models.Model):
 
     def get_absolute_url(self):
         return reverse('pieces_details', kwargs={'piece_id': self.pk})
+
