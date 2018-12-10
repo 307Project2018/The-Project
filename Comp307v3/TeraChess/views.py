@@ -11,7 +11,7 @@ from django.template import RequestContext
 from django.contrib.auth import logout
 from django.views.generic.edit import FormView
 import random
-
+import re
 
 def account(request):
     return render(request, 'TeraChess/html/account.html')
@@ -24,7 +24,6 @@ def build(request):
 def collection(request):
     context = {}
     if request.user.is_authenticated:
-
         profile = request.user.profile
         all_pieces = PieceSet.objects.filter(player=profile)
         context = {
@@ -49,7 +48,6 @@ def learn(request):
 def loginSignUp(request):
     context = {}
     if request.user.is_authenticated:
-
         profile = request.user.profile
         all_pieces = PieceSet.objects.filter(player=profile)
         context = {
@@ -80,8 +78,8 @@ def piecesetupdate(request, piece_set_id):
 
 
 def piece_details(request, piece_id):
-        current_piece = PieceInstance.objects.get(pk=piece_id)
-        return render(request, 'TeraChess/html/piece_details.html', {'piece_instance': current_piece})
+    current_piece = PieceInstance.objects.get(pk=piece_id)
+    return render(request, 'TeraChess/html/piece_details.html', {'piece_instance': current_piece})
 
 
 def play(request):
@@ -100,13 +98,12 @@ class PieceSetCreate(CreateView):
 def PieceSetDelete(request, piece_set_id):
     piece_set = PieceSet.objects.get(pk=piece_set_id)
     piece_set.delete()
-    return render(request, 'TeraChess/html/pieceset_confirm_delete.html', {'piece_set':piece_set})
+    return render(request, 'TeraChess/html/pieceset_confirm_delete.html', {'piece_set': piece_set})
 
 
 def deletePieceSet(request):
     context = {}
     if request.user.is_authenticated:
-
         profile = request.user.profile
         all_pieces = PieceSet.objects.filter(player=profile)
         context = {
@@ -173,7 +170,6 @@ class BoardFormView(View):
     template_name = 'TeraChess/boardinstance_form.html'
     form_class = BoardForm
 
-
     def get(self, request):
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
@@ -185,9 +181,11 @@ class BoardFormView(View):
             game_id = form.cleaned_data['game_id']
             current_player = request.user.profile
             if my_rand <= 4:
-                board = BoardInstance.objects.create(player1=current_player, game_id=game_id, white_player=current_player)
+                board = BoardInstance.objects.create(player1=current_player, game_id=game_id,
+                                                     white_player=current_player)
             else:
-                board = BoardInstance.objects.create(player1=current_player, game_id=game_id, black_player=current_player)
+                board = BoardInstance.objects.create(player1=current_player, game_id=game_id,
+                                                     black_player=current_player)
             for i in range(0, 8):
                 for j in range(0, 8):
                     board.cell_set.add(Cell.objects.create(x_coord=j, y_coord=i))
@@ -269,62 +267,61 @@ def loginview(request):
 
 
 def move_piece_checker(request, start, end):
-   """ Returns 0 if piece at start cannot move to end,
+    """ Returns 0 if piece at start cannot move to end,
         1 if it can move, 2 if it can move but the move is an attack """
-   boardWidth = 8
-   boardHeight = 8
-   board = [[None for x in range(boardWidth)] for y in range(boardHeight)]
-   if start == end:
-       return 0
-   piece_to_move = board[start[0]][start[1]]
-   # query database about piece info, in particular the move_set
-   move_set_example = "(0,4),(4,3),(5,6),(0,3)"
-   move_set = Piece.objects.find(name=piece_to_move)
-   possible_ends = re.findall(r"\((.,.)\)", move_set)
-   possible_ends_tuples = [tuple(int(s) for s in i.split(',')) for i in possible_ends]
+    board_width = 8
+    board_height = 8
+    board = [[None for x in range(board_width)] for y in range(board_height)]
+    if start == end:
+        return 0
+    piece_to_move = board[start[0]][start[1]]
+    # query database about piece info, in particular the move_set
+    move_set_example = "(0,4),(4,3),(5,6),(0,3)"
+    move_set = Piece.objects.find(name=piece_to_move)
+    possible_ends = re.findall(r"\((.,.)\)", move_set)
+    possible_ends_tuples = [tuple(int(s) for s in i.split(',')) for i in possible_ends]
 
-   # check if possible to move there
-   possible_to_move = 0
-   for x in possible_ends_tuples:
-       if (x[0] + start[0], x[1] + start[1]) == end:
-           print(x)
-           possible_to_move = 1
+    # check if possible to move there
+    possible_to_move = 0
+    for x in possible_ends_tuples:
+        if (x[0] + start[0], x[1] + start[1]) == end:
+            print(x)
+            possible_to_move = 1
 
-   if possible_to_move == 0:
-       return 0
+    if possible_to_move == 0:
+        return 0
 
-   # check if pieces exist between start and end
-   diff = (end[0] - start[0], end[1] - start[1])
+    # check if pieces exist between start and end
+    diff = (end[0] - start[0], end[1] - start[1])
 
-   # crest movement
-   if diff[0] == 0 or diff[1] == 0:
-       min_v = min(diff[0], diff[1])
-       max_v = max(diff[0], diff[1])
-       if diff[0] == 0:
-           for x in range(min_v+1, max_v):
-               if board[start[0]][x] is not None:
-                   return 0
-       else:
-           for x in range(min_v+1, max_v):
-               if board[x][start[0]] is not None:
-                   return 0
+    # crest movement
+    if diff[0] == 0 or diff[1] == 0:
+        min_v = min(diff[0], diff[1])
+        max_v = max(diff[0], diff[1])
+        if diff[0] == 0:
+            for x in range(min_v + 1, max_v):
+                if board[start[0]][x] is not None:
+                    return 0
+        else:
+            for x in range(min_v + 1, max_v):
+                if board[x][start[0]] is not None:
+                    return 0
 
-       possible_to_move = 1
+        possible_to_move = 1
 
-   # diagonal movement
-   if abs(diff[0]) == abs(diff[1]):
-       a = (diff[0] * 1/abs(diff[0]), diff[1] * 1/abs(diff[1]))
-       y = lambda z: (a[0] * z + start[0], a[1] * z + start[1])
-       for x in range(1, abs(diff[1])):
-           if board[y(x)[0]][y(x)[1]] is not None:
-               return 0
-       possible_to_move = 1
+    # diagonal movement
+    if abs(diff[0]) == abs(diff[1]):
+        a = (diff[0] * 1 / abs(diff[0]), diff[1] * 1 / abs(diff[1]))
+        y = lambda z: (a[0] * z + start[0], a[1] * z + start[1])
+        for x in range(1, abs(diff[1])):
+            if board[y(x)[0]][y(x)[1]] is not None:
+                return 0
+        possible_to_move = 1
 
-   end_location = board[end[0]][end[1]]
-   if end_location is not None:
-       endPiece = board[end[0]][end[1]]
-   # query database about endPiece
-   # check if enemy piece belongs to enemy player return 2
-   # if piece does not belong to enemy player return 0
-   return 2
-
+    end_location = board[end[0]][end[1]]
+    if end_location is not None:
+        endPiece = board[end[0]][end[1]]
+    # query database about endPiece
+    # check if enemy piece belongs to enemy player return 2
+    # if piece does not belong to enemy player return 0
+    return 2
