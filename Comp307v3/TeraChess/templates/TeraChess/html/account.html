@@ -1,0 +1,9 @@
+{% extends 'TeraChess/html/template.html' %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+    name:{{ request.user.username }}<br>
+    {% endif %}
+
+
+{% endblock %}
+{% block bottom %} bottom banner {% endblock %}
