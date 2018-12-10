@@ -47,6 +47,3 @@ class PieceInstance(models.Model):
 
 
 
-
-
-
