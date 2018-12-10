@@ -1,17 +1,19 @@
-.mainContent{
+.contentGrid{
 	padding-right:0%;
 	display:grid;
 	position:relative;
-	grid-template-columns:70% 23%;
+	grid-template-columns:65% 28%;
 	grid-gap:2%
 }
 .mainText{
-	background-color:grey;
+    font-size:20px;
 	position:relative;
 }
 .sideBar{
-	background-color:pink;
+    font-size:20px;
+	background-color:grey;
 	position:relative;
+	padding:3px;
 }
 body{
     font-size:12px;

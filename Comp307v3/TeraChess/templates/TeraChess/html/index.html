@@ -1,23 +1,43 @@
 {% extends 'TeraChess/html/template.html' %}
-
+{% load staticfiles %}
 {% block content %}
-    Welcome {{ request.user.username }} to our humble website<br>
-    {% if request.user.is_authenticated %}
+<link rel="stylesheet" type="text/css" href="{% static 'TeraChess/home.css' %}"/>
+<div class="contentGrid">
+    <div class="mainText">
+        Welcome {{ request.user.username }} to our humble website!<br>
+        {% if request.user.is_authenticated %}
 
-    {% if request.user.profile.pieceset_set %}
+        {% if request.user.profile.pieceset_set %}
         It seems you have already taken the time to create a custom Chess Board for yourself. SUPERCOOL!. <br>
-    {% endif %}
+        {% endif %}
 
-    {% if not request.user.profile.pieceset_set %}
+        {% if not request.user.profile.pieceset_set %}
         It appears that you have not make a custom Chess Board yet. Head on over to the <b> COLLECTIONS</b>
         tab to get started
-    {% endif %}
-    {% endif %}
+        {% endif %}
+        {% endif %}
 
-    {% if not request.user.is_authenticated %}
+        {% if not request.user.is_authenticated %}
         Looks like you are not logged in. <br>
-        Feel free to either log in or make an account to start the TeraChess experience
-    {% endif %}
+        Feel free to either log in or make an account to start the TeraChess experience<br>
+        {% endif %}
 
 
+    </div>
+    <div class="sideBar">
+        Recent updates:<br>
+        -V0.32: fixed the issue where as the ueen was now... you know what all piecess should not die to to a stiff breeze anymore<br>
+        -V0.31: fixed the king dying on its own due to a stiff breeze<br>
+        -V0.3: We finnally playtested the game... balance fixes... nough said.<br>
+        -V0.21.1: Grammar corrections<br>
+        -V0.21:Fixed collections suddenly disapearing, sorry bout that<br>
+        -V0.2: First edition of the collection manager<br>
+        -V0.12: Hotfix fixed the annoying elephant issue<br>
+        -V0.11: hotfix fix pieces  not displaying<br>
+        -V0.1: First Edition of terra chess, Barely working play.<br>
+
+    </div>
+</div>
+</body>
 {% endblock %}
+</html>

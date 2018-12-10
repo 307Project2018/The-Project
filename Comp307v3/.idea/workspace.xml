@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85eda614-341b-4641-bfc5-b49a63ac7a11" name="Default Changelist" comment="" />
+    <list default="true" id="85eda614-341b-4641-bfc5-b49a63ac7a11" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TeraChess/static/TeraChess/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/TeraChess/static/TeraChess/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TeraChess/static/TeraChess/templateStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/TeraChess/static/TeraChess/templateStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,145 +18,56 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="740406490">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.2032" value="1" />
-          <entry key="project.open.time.371" value="1" />
-          <entry key="project.open.time.44" value="1" />
-          <entry key="project.opened" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="css" value="1" />
-          <entry key="html" value="43" />
-          <entry key="py" value="37" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CSS" value="1" />
-          <entry key="HTML" value="43" />
-          <entry key="Python" value="37" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="html" value="1896" />
-          <entry key="py" value="2672" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="HTML" value="1896" />
-          <entry key="Python" value="2672" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TeraChess/forms.py">
+        <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-                <marker date="1544315706847" expanded="true" signature="460:800" ph="..." />
-                <marker date="1544315706847" expanded="true" signature="606:615" ph="..." />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="21" column="45" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TeraChess/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2006">
-              <caret line="121" column="62" selection-start-line="121" selection-start-column="62" selection-end-line="121" selection-end-column="62" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-                <marker date="1544316791685" expanded="true" signature="3190:4178" ph="..." />
-                <marker date="1544316791685" expanded="true" signature="4207:4806" ph="..." />
-                <marker date="1544316791685" expanded="true" signature="4831:4836" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/collection.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/pieces.html">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="87" selection-start-line="18" selection-start-column="87" selection-end-line="18" selection-end-column="87" />
+            <state relative-caret-position="184">
+              <caret line="28" column="134" selection-start-line="28" selection-start-column="134" selection-end-line="28" selection-end-column="134" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/account.html">
+        <entry file="file://$PROJECT_DIR$/TeraChess/static/TeraChess/home.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+              <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html">
+        <entry file="file://$PROJECT_DIR$/Comp307v3/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+            <state relative-caret-position="208">
+              <caret line="123" column="14" selection-start-line="123" selection-start-column="14" selection-end-line="123" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/TeraChess/models.py">
+        <entry file="file://$PROJECT_DIR$/TeraChess/static/TeraChess/templateStyle.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
+            <state relative-caret-position="224">
+              <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TeraChess/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Comp307v3/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="59" selection-start-line="10" selection-start-column="59" selection-end-line="10" selection-end-column="59" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/base.html">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -174,7 +92,11 @@
       <find>create</find>
       <find>Create</find>
       <find>CreateView</find>
+      <find>stat</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -185,7 +107,6 @@
         <option value="$PROJECT_DIR$/TeraChess/templates/registration/profile.html" />
         <option value="$PROJECT_DIR$/TeraChess/models.py" />
         <option value="$PROJECT_DIR$/TeraChess/urls.py" />
-        <option value="$PROJECT_DIR$/Comp307v3/settings.py" />
         <option value="$PROJECT_DIR$/TeraChess/forms.py" />
         <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/registration_form.html" />
         <option value="$PROJECT_DIR$/TeraChess/templates/registration/login.html" />
@@ -196,12 +117,15 @@
         <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/delete_pieceset.html" />
         <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/learn.html" />
         <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/play.html" />
-        <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html" />
         <option value="$PROJECT_DIR$/TeraChess/views.py" />
         <option value="$PROJECT_DIR$/Comp307v3/urls.py" />
         <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/collection.html" />
-        <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/index.html" />
         <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/account.html" />
+        <option value="$PROJECT_DIR$/Comp307v3/settings.py" />
+        <option value="$PROJECT_DIR$/TeraChess/static/TeraChess/home.css" />
+        <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/index.html" />
+        <option value="$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html" />
+        <option value="$PROJECT_DIR$/TeraChess/static/TeraChess/templateStyle.css" />
       </list>
     </option>
   </component>
@@ -213,14 +137,16 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
-    <option name="width" value="697" />
-    <option name="height" value="775" />
+    <option name="width" value="654" />
+    <option name="height" value="727" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -231,13 +157,43 @@
             <path>
               <item name="Comp307v3" type="b2602c69:ProjectViewProjectNode" />
               <item name="Comp307v3" type="462c0819:PsiDirectoryNode" />
+              <item name="Comp307v3" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Comp307v3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Comp307v3" type="462c0819:PsiDirectoryNode" />
+              <item name="TeraChess" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Comp307v3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Comp307v3" type="462c0819:PsiDirectoryNode" />
+              <item name="TeraChess" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Comp307v3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Comp307v3" type="462c0819:PsiDirectoryNode" />
+              <item name="TeraChess" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="TeraChess" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Comp307v3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Comp307v3" type="462c0819:PsiDirectoryNode" />
+              <item name="TeraChess" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Comp307v3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Comp307v3" type="462c0819:PsiDirectoryNode" />
+              <item name="TeraChess" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="TeraChess" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -247,12 +203,13 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Patrick\PycharmProjects\Comp307v3\TeraChess\templates" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\obliv\Documents\GitHub\The-Project\Comp307v3\TeraChess\static\TeraChess" />
       <recent name="C:\Users\Patrick\PycharmProjects\Comp307v3\TeraChess" />
       <recent name="C:\Users\Patrick\PycharmProjects\Comp307v3\Comp307v3" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Patrick\PycharmProjects\Comp307v3\TeraChess\templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -303,13 +260,21 @@
       <option name="presentableId" value="Default" />
       <updated>1544054527320</updated>
     </task>
+    <task id="LOCAL-00001" summary="test">
+      <created>1544466357239</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1544466357239</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="736" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3698941" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24165341" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -323,20 +288,47 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32923076" />
-      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3283582" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3283582" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info anchor="right" id="Database" order="4" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24165341" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3283582" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.css" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -359,9 +351,6 @@
     <entry file="file://$PROJECT_DIR$/Comp307v3/wsgi.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/TeraChess/static/TeraChess/home.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/pieceset_confirm_delete.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -369,16 +358,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/base.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Comp307v3/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="70" lean-forward="true" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
         </state>
       </provider>
     </entry>
@@ -510,24 +489,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="87" selection-start-line="18" selection-start-column="87" selection-end-line="18" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/account.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -545,6 +510,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-85">
           <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeraChess/static/TeraChess/template.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/base.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Comp307v3/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="123" column="14" selection-start-line="123" selection-start-column="14" selection-end-line="123" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="28" column="134" selection-start-line="28" selection-start-column="134" selection-end-line="28" selection-end-column="134" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeraChess/static/TeraChess/home.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeraChess/templates/TeraChess/html/template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="21" column="45" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TeraChess/static/TeraChess/templateStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
         </state>
       </provider>
     </entry>
