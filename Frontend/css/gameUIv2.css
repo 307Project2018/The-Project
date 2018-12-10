@@ -21,9 +21,11 @@ img{
 	width:7vw;
 }
 .boardSquareW{
-	background-color:blue;
+	background-color:yellow;
 	border:2px solid black;
 	padding:0%;
+	height:7vw;
+	width:7vw;
 
 }
 .interface{
