@@ -19,7 +19,11 @@
 {% endif %}
 
 {% if not request.user.is_authenticated %}
-    You are not logged in. Please log in and return to this page.
+    <br>
+<div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+    <p style="font-size:20px">You are not logged in. Please log in and return to this page.</p><br>
+    <img src="https://cdn3.iconfinder.com/data/icons/pictomisc/100/sadface-512.png">
+</div>
 {% endif %}
 
 {% endblock %}
