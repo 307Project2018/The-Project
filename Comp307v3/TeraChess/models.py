@@ -27,6 +27,7 @@ class Piece(models.Model):
     name = models.CharField(max_length=100, default="")
     picture = models.CharField(max_length=1000, default="")
     front = models.BooleanField(default=True)
+    moveSet = models.CharField(max_length=300, default="")
 
     def __str__(self):
         return self.name
@@ -43,4 +44,9 @@ class PieceInstance(models.Model):
 
     def get_absolute_url(self):
         return reverse('pieces_details', kwargs={'piece_id': self.pk})
+
+
+
+
+
 
