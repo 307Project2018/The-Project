@@ -25,9 +25,10 @@ class PieceSet(models.Model):
 
 class Piece(models.Model):
     name = models.CharField(max_length=100, default="")
-    picture = models.CharField(max_length=1000, default="")
+    picture_white = models.CharField(max_length=1000, default="")
+    picture_black = models.CharField(max_length=1000, default="")
     front = models.BooleanField(default=True)
-    moveSet = models.CharField(max_length=300, default="")
+    move_set = models.CharField(max_length=300, default="")
 
     def __str__(self):
         return self.name
