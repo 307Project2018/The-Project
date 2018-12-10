@@ -74,3 +74,17 @@ a.menulink:visited{
 a.menulink:hover{
 	color:yellow;
 }
+
+a.bottomLinks:link{
+    color:black;
+    text-decoration:underline;
+}
+
+a.bottomLinks:visited{
+    color:black;
+    text-decoration:underline;
+}
+
+a.bottomLinks:hover{
+    color:yellow;
+}
