@@ -5,10 +5,10 @@
 {% if profile.pieceset_set %}
     {% for piece_set in all_pieces %}
         <a  href = "/TeraChess/PieceSet/{{ piece_set.id }}/">
-            {{ piece_set.name }}</a><br>
+            {{ piece_set.name }} </a> --------------
+        <a href = "/TeraChess/update/{{ piece_set.id }}"> Make {{ piece_set.name }} your main board</a> <br>
     {% endfor %}
     <br>
-
 {% else %}
     there are no pieces to display<br>
 {% endif %}

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-from .models import PieceSet, Piece, Player, PieceInstance
+from .models import PieceSet, Piece, Player, PieceInstance, BoardInstance, Cell
 
 
 class UserForm(forms.ModelForm):
@@ -30,6 +30,17 @@ class PieceInstanceForm(forms.ModelForm):
         self.fields['piece_set'].queryset = PieceSet.objects.filter(player=user.profile)
 
 
+class BoardForm(forms.ModelForm):
 
+    class Meta:
+        model = BoardInstance
+        fields = ['game_id']
+
+
+class SecondPlayerForm(forms.ModelForm):
+
+    class Meta:
+        model = BoardInstance
+        fields = ['game_id']
 
 

@@ -17,7 +17,8 @@ urlpatterns = [
     url(r'^loginSignUp', views.loginSignUp, name='loginSignUp'), #/(?P<my_user_id>[0-9]+)$', views.loginSignUp, name='loginSignUp'),
     url(r'^register$', views.UserFormView.as_view(), name='register'),
     url(r'^DeletePieceSet$', views.deletePieceSet, name='deletePieceSet'),
-    url(r'^play$', views.play, name='play'),
+    url(r'^play$', views.BoardFormView.as_view(), name='play'),
+    url(r'^play/second', views.SecondPlayer.as_view(), name='secondplayer'),
     url(r'^template$', views.template, name='template'),
     url(r'^PieceSet/(?P<piece_set_id>[0-9]+)/$', views.pieces, name='pieces'),
     url(r'^Piece/(?P<piece_id>[0-9]+)/$', views.piece_details, name='pieces_details'),
@@ -26,7 +27,9 @@ urlpatterns = [
     url(r'^Piece/add/$', views.PieceInstanceFormView.as_view(), name='PieceInstanceAdd'),
     url(r'^logout$', views.logoutview, name='logout'),
     url(r'^login$', views.loginview, name='login'),
-    #url(r'', views.index, name='index')
+    url(r'^update/(?P<piece_set_id>[0-9]+)$', views.piecesetupdate, name='update')
 ]
+
+# request.user.pieceset_set.get(name=
 
 

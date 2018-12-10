@@ -15,6 +15,7 @@ class Player(models.Model):
 class PieceSet(models.Model):
     name = models.CharField(max_length=100, default="", unique=True)
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True )
+    main = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('collection')
@@ -25,10 +26,9 @@ class PieceSet(models.Model):
 
 class Piece(models.Model):
     name = models.CharField(max_length=100, default="")
+    front = models.BooleanField(default=True)
     picture_white = models.CharField(max_length=1000, default="")
     picture_black = models.CharField(max_length=1000, default="")
-    front = models.BooleanField(default=True)
-    move_set = models.CharField(max_length=300, default="")
 
     def __str__(self):
         return self.name
@@ -47,4 +47,21 @@ class PieceInstance(models.Model):
         return reverse('pieces_details', kwargs={'piece_id': self.pk})
 
 
+class BoardInstance(models.Model):
+    player1 = models.CharField(max_length=100, default="")
+    player2 = models.CharField(max_length=100, default="")
+    white_player = models.CharField(max_length=100, default="")
+    black_player = models.CharField(max_length=100, default="")
+    game_id = models.CharField(max_length=100, default="")
 
+    def __str__(self):
+        return self.game_id
+
+
+class Cell(models.Model):
+    piece = models.ForeignKey(PieceInstance, on_delete=models.CASCADE, blank=True, null=True)
+    x_coord = models.IntegerField(default=0)
+    y_coord = models.IntegerField(default=0)
+    board = models.ForeignKey(BoardInstance, on_delete=models.CASCADE, null=True)
+    def __str__(self):
+        return str(self.x_coord) + ", " + str(self.y_coord)
