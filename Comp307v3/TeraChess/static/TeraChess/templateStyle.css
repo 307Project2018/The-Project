@@ -42,6 +42,8 @@ body{
 	width:100%;
 }
 .bottomBanner{
+    display:grid;
+    grid-template-columns:50% 50%;
 	background-color:blue;
 	position:relative;
 	height:100px;
