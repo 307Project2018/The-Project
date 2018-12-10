@@ -202,6 +202,11 @@ def loginview(request):
     return redirect('TeraChess/index')
 
 
+boardWidth = 8
+boardHeight = 8
+board = [[None for x in range(boardWidth)] for y in range(boardHeight)]
+
+
 def move_piece_checker(request, start, end):
     """ Returns 0 if piece at start cannot move to end,
          1 if it can move, 2 if it can move but the move is an attack """
