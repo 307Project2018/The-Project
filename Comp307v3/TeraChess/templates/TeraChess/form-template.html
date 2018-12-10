@@ -1,0 +1,9 @@
+{% for field in form %}
+    <div>
+        {{ field.error }}
+    </div>
+    <label> {{ field.label_tag }}</label>
+    <div>
+        {{ field }}
+    </div>
+{% endfor %}

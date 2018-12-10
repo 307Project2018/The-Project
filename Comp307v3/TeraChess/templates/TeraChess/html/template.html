@@ -1,0 +1,46 @@
+{% load staticfiles %}
+{% block menu %}
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="{% static 'TeraChess/templateStyle.css' %}"/>
+	</head>
+	<body>
+		<div class="topBanner">
+			<div class="topBannerText">
+			<span>TERACHESS</span>
+                <br>
+                <div style="font-size:20px">
+                    {% if request.user.is_authenticated %}
+                        Logged in as: {{ request.user.username }}
+                    {% endif %}
+                    {% if not request.user.is_authenticated %}
+                        You are not currently logged in
+                    {% endif %}
+                </div>
+            </div>
+			<div class="loginDiv">
+                <span><a class ="logingText" href="{% url 'login' %}">Login</a></span>
+				<span><a href="{% url 'register' %}">Register</a></span>
+                <span><a href="{% url 'logout' %}">logout</a></span>
+			</div>
+		</div>
+		<div class="menuBar">
+			<span class="menuBarItem"><a class="menuLink" href="{% url 'index' %}">HOME</a></span>
+			<span class="menuBarItem"><a class="menuLink" href="{% url 'play' %}">PLAY</a></span>
+			<span class="menuBarItem"><a class="menuLink" href="{% url 'build' %}">BUILD</a></span>
+			<span class="menuBarItem"><a class="menuLink" href="{% url 'collection'%}">COLLECTION</a></span>
+			<span class="menuBarItem"><a class="menuLink" href="{% url 'learn' %}">LEARN</a></span>
+			<span class="menuBarItem" style="border-right:none;"><a class="menuLink" href="{% url 'account' %}">ACCOUNT</a></span>
+		</div>
+
+		<div class="mainContent">
+		{% block content %} {% endblock %}
+		</div>
+		<div class="bottomBanner">
+
+
+
+		</div>
+	</body>
+</html>
+{% endblock %}

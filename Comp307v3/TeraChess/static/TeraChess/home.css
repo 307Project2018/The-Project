@@ -1,0 +1,23 @@
+.contentGrid{
+	padding-right:0%;
+	display:grid;
+	position:relative;
+	grid-template-columns:65% 28%;
+	grid-gap:2%
+}
+.mainText{
+    font-size:20px;
+	position:relative;
+}
+.sideBar{
+    font-size:20px;
+	background-color:grey;
+	position:relative;
+	padding:3px;
+}
+body{
+    font-size:12px;
+}
+.menuBarItem{
+    color:white;
+}

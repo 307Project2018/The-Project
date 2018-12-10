@@ -1,0 +1,75 @@
+body{
+	margin:0px;
+	padding:0px;
+}
+
+.topBanner{
+	background-color:blue;
+	border-bottom:2px solid black;
+	height:100px;
+	width:100%;
+	position:relative;
+}
+
+.topBannerText{
+	font-size:60;
+}
+
+.mainContent{
+	padding-left:2%;
+	padding-right:2%;
+	width:100%;
+}
+
+.menuBar{
+	display:grid;
+	grid-template-columns:auto auto auto auto auto auto;
+	grid-column-gap:0px;
+	border-bottom:2px solid black;
+	text-align:center;
+	background-color:red;
+	position:relative;
+	width:100%;
+}
+.menuBarItem{
+	font-size:40;
+	padding:5px;
+	border-right:2px solid black;
+}
+.mainContent{
+	background-color:teal;
+	position:relative;
+	width:100%;
+}
+.bottomBanner{
+    display:grid;
+    grid-template-columns:50% 50%;
+	background-color:blue;
+	position:relative;
+	height:100px;
+	width:100%;
+}
+.loginDiv{
+	position:absolute;
+	right:0px;
+	bottom:0px;
+	background-color:teal;
+
+}
+
+.loginText{
+    font-color:black;
+}
+
+a.menulink:link{
+		color:black;
+		text-decoration:none;
+}
+		
+a.menulink:visited{
+		text-decoration:none;
+}
+		
+a.menulink:hover{
+	color:yellow;
+}
