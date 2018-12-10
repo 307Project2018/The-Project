@@ -1,0 +1,14 @@
+{% if all_pieces %}
+    {% for piece_set in all_pieces %}
+        <a  href = "/TeraChess/PieceSet/{{ piece_set.id }}/">
+            {{ piece_set.name }}</a><br>
+    {% endfor %}
+    <br>
+
+{% else %}
+    there are no pieces to display<br>
+{% endif %}
+<br>
+    <a href="/TeraChess/Piece/add/">Add a Piece to an existing Piece-Set</a> <br>
+    <a href="/TeraChess/PieceSet/add/">Create a new Piece-Set</a><br>
+    <a href="/TeraChess/DeletePieceSet">Delete an existing Piece-Set</a>

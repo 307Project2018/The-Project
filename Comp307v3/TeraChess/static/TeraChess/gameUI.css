@@ -1,0 +1,55 @@
+img{
+	max-height:100%;
+	max-width:100%;
+}
+
+.board{
+	position:relative;
+	display:grid;
+	grid-template-columns:auto auto auto auto auto auto auto auto;
+	grid-template-rows:auto auto auto auto auto auto auto auto;
+	padding:0%;
+	height:58%;
+	grid-gap:0;
+	border: 2px solid black;
+}
+.boardSquareB{
+	background-color:yellow;
+	border:2px solid black;
+	padding:0%;
+	height:7vw;
+	width:7vw;
+}
+.boardSquareW{
+	background-color:blue;
+	border:2px solid black;
+	padding:0%;
+
+}
+.interface{
+	display:grid;
+	grid-template-columns:auto;
+	background-color:black;
+	position:relative;
+	border-left:2px solid black;
+}
+.boardNInterface{
+	display:grid;
+	position:relative;
+	grid-template-columns: 58vw auto;
+	grid-template-rows: auto;
+	grid-gap:0px;
+}
+.playerStatus{
+	display:grid;
+	position:relative;
+	width:100%;
+	grid-template-columns: 50% 50%;
+}
+body{
+	margin:0px;
+}
+.textBox{
+	position:relative;
+	background-color:white;
+}

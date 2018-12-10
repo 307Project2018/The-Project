@@ -1,0 +1,23 @@
+{% extends 'TeraChess/html/template.html' %}
+
+{% block content %}
+    Welcome {{ request.user.username }} to our humble website<br>
+    {% if request.user.is_authenticated %}
+
+    {% if request.user.profile.pieceset_set %}
+        It seems you have already taken the time to create a custom Chess Board for yourself. SUPERCOOL!. <br>
+    {% endif %}
+
+    {% if not request.user.profile.pieceset_set %}
+        It appears that you have not make a custom Chess Board yet. Head on over to the <b> COLLECTIONS</b>
+        tab to get started
+    {% endif %}
+    {% endif %}
+
+    {% if not request.user.is_authenticated %}
+        Looks like you are not logged in. <br>
+        Feel free to either log in or make an account to start the TeraChess experience
+    {% endif %}
+
+
+{% endblock %}

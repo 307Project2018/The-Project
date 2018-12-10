@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<html>
+{% for piece_instance in pieces|dictsort:"order" %}
+    {% if piece_instance.piece.front == True %}
+        <a  href = "/TeraChess/Piece/{{ piece_instance.id }}/">
+            <img src="{{ piece_instance.piece.picture }}" alt="{{ piece_instance.piece.name }}">
+        </a>
+    {% endif %}
+{% endfor %}
+<br>
+{% for piece_instance in pieces|dictsort:"order" %}
+    {% if piece_instance.piece.front == False %}
+        <a  href = "/TeraChess/Piece/{{ piece_instance.id }}/">
+            <img src="{{ piece_instance.piece.picture }}" alt="{{ piece_instance.piece.name }}">
+        </a>
+    {% endif %}
+{% endfor %}
+<br>
+<a href="/TeraChess/loginSignUp"> Return to Piece-Sets</a>
+<br>
+
+
+
+
