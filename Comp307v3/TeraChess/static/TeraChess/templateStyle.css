@@ -37,12 +37,14 @@ body{
 	border-right:2px solid black;
 }
 .mainContent{
-	background-color:green;
+	background-color:teal;
 	position:relative;
 	width:100%;
 }
 .bottomBanner{
-	background-color:yellow;
+    display:grid;
+    grid-template-columns:50% 50%;
+	background-color:blue;
 	position:relative;
 	height:100px;
 	width:100%;
@@ -51,7 +53,12 @@ body{
 	position:absolute;
 	right:0px;
 	bottom:0px;
-	background-color:black;
+	background-color:teal;
+
+}
+
+.loginText{
+    font-color:black;
 }
 
 a.menulink:link{
