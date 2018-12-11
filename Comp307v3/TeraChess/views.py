@@ -1,15 +1,12 @@
-from django.urls import reverse_lazy
+
 from django.shortcuts import render, redirect
-from .models import PieceSet, Piece, Player, PieceInstance, User, BoardInstance, Cell
+from .models import PieceSet, Player, PieceInstance, BoardInstance, Cell
 from django.http import Http404
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core import serializers
+from django.views.generic.edit import CreateView
 from django.views.generic import View
-from .forms import UserForm, PieceSetForm, PieceInstanceForm, BoardForm, SecondPlayerForm
+from .forms import UserForm, PieceSetForm, PieceInstanceForm, BoardForm, SecondPlayerForm, MoveForm
 from django.contrib.auth import authenticate, login
-from django.template import RequestContext
 from django.contrib.auth import logout
-from django.views.generic.edit import FormView
 import random
 import re
 
@@ -98,7 +95,7 @@ class PieceSetCreate(CreateView):
 def PieceSetDelete(request, piece_set_id):
     piece_set = PieceSet.objects.get(pk=piece_set_id)
     piece_set.delete()
-    return render(request, 'TeraChess/html/pieceset_confirm_delete.html', {'piece_set': piece_set})
+    return render(request, 'TeraChess/html/pieceset_confirm_delete.html', {'piece_set':piece_set})
 
 
 def deletePieceSet(request):
@@ -134,7 +131,8 @@ class PieceInstanceFormView(View):
             order = form.cleaned_data['order']
             piece = form.cleaned_data['piece']
             piece_set = form.cleaned_data['piece_set']
-            PieceInstance.objects.create(name=name, order=order, piece=piece, piece_set=piece_set)
+            front = piece.front
+            PieceInstance.objects.create(name=name, order=order, piece=piece, piece_set=piece_set, front=front)
 
         if request.user.is_authenticated:
             return redirect('TeraChess/index')
@@ -170,6 +168,7 @@ class BoardFormView(View):
     template_name = 'TeraChess/boardinstance_form.html'
     form_class = BoardForm
 
+
     def get(self, request):
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
@@ -181,11 +180,9 @@ class BoardFormView(View):
             game_id = form.cleaned_data['game_id']
             current_player = request.user.profile
             if my_rand <= 4:
-                board = BoardInstance.objects.create(player1=current_player, game_id=game_id,
-                                                     white_player=current_player)
+                board = BoardInstance.objects.create(player1=current_player, game_id=game_id, white_player=current_player)
             else:
-                board = BoardInstance.objects.create(player1=current_player, game_id=game_id,
-                                                     black_player=current_player)
+                board = BoardInstance.objects.create(player1=current_player, game_id=game_id, black_player=current_player)
             for i in range(0, 8):
                 for j in range(0, 8):
                     board.cell_set.add(Cell.objects.create(x_coord=j, y_coord=i))
@@ -263,65 +260,411 @@ def logoutview(request):
 def loginview(request):
     if request.user.is_authenticated:
         login(request)
-    return redirect('TeraChess/index')
+    return redirect('TeraChess/collection')
 
 
-def move_piece_checker(request, start, end):
-    """ Returns 0 if piece at start cannot move to end,
-        1 if it can move, 2 if it can move but the move is an attack """
-    board_width = 8
-    board_height = 8
-    board = [[None for x in range(board_width)] for y in range(board_height)]
-    if start == end:
-        return 0
-    piece_to_move = board[start[0]][start[1]]
-    # query database about piece info, in particular the move_set
-    move_set_example = "(0,4),(4,3),(5,6),(0,3)"
-    move_set = Piece.objects.find(name=piece_to_move)
-    possible_ends = re.findall(r"\((.,.)\)", move_set)
-    possible_ends_tuples = [tuple(int(s) for s in i.split(',')) for i in possible_ends]
+def displayGames(request):
+    context = {}
+    if request.user.is_authenticated:
+        player = request.user.profile
+        games_player1 = BoardInstance.objects.filter(player1=player.username)
+        games_player2 = BoardInstance.objects.filter(player2=player.username)
 
-    # check if possible to move there
-    possible_to_move = 0
-    for x in possible_ends_tuples:
-        if (x[0] + start[0], x[1] + start[1]) == end:
-            print(x)
-            possible_to_move = 1
+        context = {
+            'games_player1': games_player1,
+            'games_player2': games_player2
+        }
 
-    if possible_to_move == 0:
-        return 0
+    return render(request, 'TeraChess/html/my_games.html', context)
 
-    # check if pieces exist between start and end
-    diff = (end[0] - start[0], end[1] - start[1])
 
-    # crest movement
-    if diff[0] == 0 or diff[1] == 0:
-        min_v = min(diff[0], diff[1])
-        max_v = max(diff[0], diff[1])
-        if diff[0] == 0:
-            for x in range(min_v + 1, max_v):
-                if board[start[0]][x] is not None:
-                    return 0
-        else:
-            for x in range(min_v + 1, max_v):
-                if board[x][start[0]] is not None:
-                    return 0
+# I am so very sorry for having disgusting hard-coded garbage like this
+def gametime(request, game_id):
+    context = {}
+    is_front = False
+    if request.user.is_authenticated:
+        game = BoardInstance.objects.get(game_id=game_id)
+        white_player = Player.objects.get(username=game.white_player)
+        black_player = Player.objects.get(username=game.black_player)
+        white_player_set = PieceSet.objects.get(player=white_player, main=True).pieceinstance_set
+        black_player_set = PieceSet.objects.get(player=black_player, main=True).pieceinstance_set
+        for i in range(0, 8):
+            for j in range(0, 2):
+                if j == 0:
+                    is_front = False
+                if j == 1:
+                    is_front = True
+                cell_piece = white_player_set.get(order=i, front=is_front)
+                cell_piece.picture = cell_piece.piece.picture_white
+                cell_piece.save()
+                cell = Cell.objects.get(x_coord=i, y_coord=j, board=game)
+                cell.piece = cell_piece
+                cell.is_null = False
+                cell.save()
+        for i in range(0, 8):
+            for j in range(2,6):
+                cell = Cell.objects.get(x_coord=i, y_coord=j, board=game)
+                cell.is_null = True
+                cell.save()
+        for i in range(0, 8):
+            for j in range(6, 8):
+                if j == 6:
+                    is_front = True
+                if j == 7:
+                    is_front = False
+                cell_piece = black_player_set.get(order=i, front=is_front)
+                cell_piece.picture = cell_piece.piece.picture_black
+                cell_piece.save()
+                cell = Cell.objects.get(x_coord=i, y_coord=j, board=game)
+                cell.piece = cell_piece
+                cell.is_null = False
+                cell.save()
+        cell_00 = Cell.objects.get(x_coord=0, y_coord=0, board=game)
+        cell_01 = Cell.objects.get(x_coord=0, y_coord=1, board=game)
+        cell_02 = Cell.objects.get(x_coord=0, y_coord=2, board=game)
+        cell_03 = Cell.objects.get(x_coord=0, y_coord=3, board=game)
+        cell_04 = Cell.objects.get(x_coord=0, y_coord=4, board=game)
+        cell_05 = Cell.objects.get(x_coord=0, y_coord=5, board=game)
+        cell_06 = Cell.objects.get(x_coord=0, y_coord=6, board=game)
+        cell_07 = Cell.objects.get(x_coord=0, y_coord=7, board=game)
 
-        possible_to_move = 1
+        cell_10 = Cell.objects.get(x_coord=1, y_coord=0, board=game)
+        cell_11 = Cell.objects.get(x_coord=1, y_coord=1, board=game)
+        cell_12 = Cell.objects.get(x_coord=1, y_coord=2, board=game)
+        cell_13 = Cell.objects.get(x_coord=1, y_coord=3, board=game)
+        cell_14 = Cell.objects.get(x_coord=1, y_coord=4, board=game)
+        cell_15 = Cell.objects.get(x_coord=1, y_coord=5, board=game)
+        cell_16 = Cell.objects.get(x_coord=1, y_coord=6, board=game)
+        cell_17 = Cell.objects.get(x_coord=1, y_coord=7, board=game)
 
-    # diagonal movement
-    if abs(diff[0]) == abs(diff[1]):
-        a = (diff[0] * 1 / abs(diff[0]), diff[1] * 1 / abs(diff[1]))
-        y = lambda z: (a[0] * z + start[0], a[1] * z + start[1])
-        for x in range(1, abs(diff[1])):
-            if board[y(x)[0]][y(x)[1]] is not None:
-                return 0
-        possible_to_move = 1
+        cell_20 = Cell.objects.get(x_coord=2, y_coord=0, board=game)
+        cell_21 = Cell.objects.get(x_coord=2, y_coord=1, board=game)
+        cell_22 = Cell.objects.get(x_coord=2, y_coord=2, board=game)
+        cell_23 = Cell.objects.get(x_coord=2, y_coord=3, board=game)
+        cell_24 = Cell.objects.get(x_coord=2, y_coord=4, board=game)
+        cell_25 = Cell.objects.get(x_coord=2, y_coord=5, board=game)
+        cell_26 = Cell.objects.get(x_coord=2, y_coord=6, board=game)
+        cell_27 = Cell.objects.get(x_coord=2, y_coord=7, board=game)
 
-    end_location = board[end[0]][end[1]]
-    if end_location is not None:
-        endPiece = board[end[0]][end[1]]
-    # query database about endPiece
-    # check if enemy piece belongs to enemy player return 2
-    # if piece does not belong to enemy player return 0
-    return 2
+        cell_30 = Cell.objects.get(x_coord=3, y_coord=0, board=game)
+        cell_31 = Cell.objects.get(x_coord=3, y_coord=1, board=game)
+        cell_32 = Cell.objects.get(x_coord=3, y_coord=2, board=game)
+        cell_33 = Cell.objects.get(x_coord=3, y_coord=3, board=game)
+        cell_34 = Cell.objects.get(x_coord=3, y_coord=4, board=game)
+        cell_35 = Cell.objects.get(x_coord=3, y_coord=5, board=game)
+        cell_36 = Cell.objects.get(x_coord=3, y_coord=6, board=game)
+        cell_37 = Cell.objects.get(x_coord=3, y_coord=7, board=game)
+
+        cell_40 = Cell.objects.get(x_coord=4, y_coord=0, board=game)
+        cell_41 = Cell.objects.get(x_coord=4, y_coord=1, board=game)
+        cell_42 = Cell.objects.get(x_coord=4, y_coord=2, board=game)
+        cell_43 = Cell.objects.get(x_coord=4, y_coord=3, board=game)
+        cell_44 = Cell.objects.get(x_coord=4, y_coord=4, board=game)
+        cell_45 = Cell.objects.get(x_coord=4, y_coord=5, board=game)
+        cell_46 = Cell.objects.get(x_coord=4, y_coord=6, board=game)
+        cell_47 = Cell.objects.get(x_coord=4, y_coord=7, board=game)
+
+        cell_50 = Cell.objects.get(x_coord=5, y_coord=0, board=game)
+        cell_51 = Cell.objects.get(x_coord=5, y_coord=1, board=game)
+        cell_52 = Cell.objects.get(x_coord=5, y_coord=2, board=game)
+        cell_53 = Cell.objects.get(x_coord=5, y_coord=3, board=game)
+        cell_54 = Cell.objects.get(x_coord=5, y_coord=4, board=game)
+        cell_55 = Cell.objects.get(x_coord=5, y_coord=5, board=game)
+        cell_56 = Cell.objects.get(x_coord=5, y_coord=6, board=game)
+        cell_57 = Cell.objects.get(x_coord=5, y_coord=7, board=game)
+
+        cell_60 = Cell.objects.get(x_coord=6, y_coord=0, board=game)
+        cell_61 = Cell.objects.get(x_coord=6, y_coord=1, board=game)
+        cell_62 = Cell.objects.get(x_coord=6, y_coord=2, board=game)
+        cell_63 = Cell.objects.get(x_coord=6, y_coord=3, board=game)
+        cell_64 = Cell.objects.get(x_coord=6, y_coord=4, board=game)
+        cell_65 = Cell.objects.get(x_coord=6, y_coord=5, board=game)
+        cell_66 = Cell.objects.get(x_coord=6, y_coord=6, board=game)
+        cell_67 = Cell.objects.get(x_coord=6, y_coord=7, board=game)
+
+        cell_70 = Cell.objects.get(x_coord=7, y_coord=0, board=game)
+        cell_71 = Cell.objects.get(x_coord=7, y_coord=1, board=game)
+        cell_72 = Cell.objects.get(x_coord=7, y_coord=2, board=game)
+        cell_73 = Cell.objects.get(x_coord=7, y_coord=3, board=game)
+        cell_74 = Cell.objects.get(x_coord=7, y_coord=4, board=game)
+        cell_75 = Cell.objects.get(x_coord=7, y_coord=5, board=game)
+        cell_76 = Cell.objects.get(x_coord=7, y_coord=6, board=game)
+        cell_77 = Cell.objects.get(x_coord=7, y_coord=7, board=game)
+
+        context = {
+            'game_id': game_id,
+            'white_player_set': white_player_set,
+            'black_player_set': black_player_set,
+            'player1': game.player1,
+            'player2': game.player2,
+            'cells': game.cell_set,
+
+            'cell_00': cell_00,
+            'cell_01': cell_01,
+            'cell_02': cell_02,
+            'cell_03': cell_03,
+            'cell_04': cell_04,
+            'cell_05': cell_05,
+            'cell_06': cell_06,
+            'cell_07': cell_07,
+
+            'cell_10': cell_10,
+            'cell_11': cell_11,
+            'cell_12': cell_12,
+            'cell_13': cell_13,
+            'cell_14': cell_14,
+            'cell_15': cell_15,
+            'cell_16': cell_16,
+            'cell_17': cell_17,
+
+            'cell_20': cell_20,
+            'cell_21': cell_21,
+            'cell_22': cell_22,
+            'cell_23': cell_23,
+            'cell_24': cell_24,
+            'cell_25': cell_25,
+            'cell_26': cell_26,
+            'cell_27': cell_27,
+
+            'cell_30': cell_30,
+            'cell_31': cell_31,
+            'cell_32': cell_32,
+            'cell_33': cell_33,
+            'cell_34': cell_34,
+            'cell_35': cell_35,
+            'cell_36': cell_36,
+            'cell_37': cell_37,
+
+            'cell_40': cell_40,
+            'cell_41': cell_41,
+            'cell_42': cell_42,
+            'cell_43': cell_43,
+            'cell_44': cell_44,
+            'cell_45': cell_45,
+            'cell_46': cell_46,
+            'cell_47': cell_47,
+
+            'cell_50': cell_50,
+            'cell_51': cell_51,
+            'cell_52': cell_52,
+            'cell_53': cell_53,
+            'cell_54': cell_54,
+            'cell_55': cell_55,
+            'cell_56': cell_56,
+            'cell_57': cell_57,
+
+            'cell_60': cell_60,
+            'cell_61': cell_61,
+            'cell_62': cell_62,
+            'cell_63': cell_63,
+            'cell_64': cell_64,
+            'cell_65': cell_65,
+            'cell_66': cell_66,
+            'cell_67': cell_67,
+
+            'cell_70': cell_70,
+            'cell_71': cell_71,
+            'cell_72': cell_72,
+            'cell_73': cell_73,
+            'cell_74': cell_74,
+            'cell_75': cell_75,
+            'cell_76': cell_76,
+            'cell_77': cell_77,
+
+        }
+    return render(request, 'TeraChess/html/gameUI.html', context)
+
+
+class NextMoveFormView(View):
+    form_class = MoveForm
+    template_name = 'TeraChess/gameUI_form.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            x_old = form.cleaned_data['x_coord_old']
+            y_old = form.cleaned_data['y_coord_old']
+            x_new = form.cleaned_data['x_coord_new']
+            y_new = form.cleaned_data['y_coord_new']
+            game_id = form.cleaned_data['game_id']
+
+            game = BoardInstance.objects.get(game_id=game_id)
+            old_cell = game.cell_set.get(x_coord=x_old, y_coord=y_old)
+            new_cell = game.cell_set.get(x_coord=x_new, y_coord=y_new)
+
+            def is_valid_move(prev_cell, next_cell):
+                return True
+
+            if is_valid_move(old_cell, new_cell):
+                new_cell.piece = old_cell.piece
+                new_cell.is_null = False
+                new_cell.save()
+
+                old_cell.is_null = True
+                old_cell.save()
+        if request.user.is_authenticated:
+            next_page = 'ViewGame/' + str(game_id)
+            return redirect(next_page)
+
+        return render(request, self.template_name, {'form': form})
+
+
+def viewgame(request, game_id):
+    context = {}
+    game = BoardInstance.objects.get(game_id=game_id)
+    if request.user.is_authenticated:
+        cell_00 = Cell.objects.get(x_coord=0, y_coord=0, board=game)
+        cell_01 = Cell.objects.get(x_coord=0, y_coord=1, board=game)
+        cell_02 = Cell.objects.get(x_coord=0, y_coord=2, board=game)
+        cell_03 = Cell.objects.get(x_coord=0, y_coord=3, board=game)
+        cell_04 = Cell.objects.get(x_coord=0, y_coord=4, board=game)
+        cell_05 = Cell.objects.get(x_coord=0, y_coord=5, board=game)
+        cell_06 = Cell.objects.get(x_coord=0, y_coord=6, board=game)
+        cell_07 = Cell.objects.get(x_coord=0, y_coord=7, board=game)
+
+        cell_10 = Cell.objects.get(x_coord=1, y_coord=0, board=game)
+        cell_11 = Cell.objects.get(x_coord=1, y_coord=1, board=game)
+        cell_12 = Cell.objects.get(x_coord=1, y_coord=2, board=game)
+        cell_13 = Cell.objects.get(x_coord=1, y_coord=3, board=game)
+        cell_14 = Cell.objects.get(x_coord=1, y_coord=4, board=game)
+        cell_15 = Cell.objects.get(x_coord=1, y_coord=5, board=game)
+        cell_16 = Cell.objects.get(x_coord=1, y_coord=6, board=game)
+        cell_17 = Cell.objects.get(x_coord=1, y_coord=7, board=game)
+
+        cell_20 = Cell.objects.get(x_coord=2, y_coord=0, board=game)
+        cell_21 = Cell.objects.get(x_coord=2, y_coord=1, board=game)
+        cell_22 = Cell.objects.get(x_coord=2, y_coord=2, board=game)
+        cell_23 = Cell.objects.get(x_coord=2, y_coord=3, board=game)
+        cell_24 = Cell.objects.get(x_coord=2, y_coord=4, board=game)
+        cell_25 = Cell.objects.get(x_coord=2, y_coord=5, board=game)
+        cell_26 = Cell.objects.get(x_coord=2, y_coord=6, board=game)
+        cell_27 = Cell.objects.get(x_coord=2, y_coord=7, board=game)
+
+        cell_30 = Cell.objects.get(x_coord=3, y_coord=0, board=game)
+        cell_31 = Cell.objects.get(x_coord=3, y_coord=1, board=game)
+        cell_32 = Cell.objects.get(x_coord=3, y_coord=2, board=game)
+        cell_33 = Cell.objects.get(x_coord=3, y_coord=3, board=game)
+        cell_34 = Cell.objects.get(x_coord=3, y_coord=4, board=game)
+        cell_35 = Cell.objects.get(x_coord=3, y_coord=5, board=game)
+        cell_36 = Cell.objects.get(x_coord=3, y_coord=6, board=game)
+        cell_37 = Cell.objects.get(x_coord=3, y_coord=7, board=game)
+
+        cell_40 = Cell.objects.get(x_coord=4, y_coord=0, board=game)
+        cell_41 = Cell.objects.get(x_coord=4, y_coord=1, board=game)
+        cell_42 = Cell.objects.get(x_coord=4, y_coord=2, board=game)
+        cell_43 = Cell.objects.get(x_coord=4, y_coord=3, board=game)
+        cell_44 = Cell.objects.get(x_coord=4, y_coord=4, board=game)
+        cell_45 = Cell.objects.get(x_coord=4, y_coord=5, board=game)
+        cell_46 = Cell.objects.get(x_coord=4, y_coord=6, board=game)
+        cell_47 = Cell.objects.get(x_coord=4, y_coord=7, board=game)
+
+        cell_50 = Cell.objects.get(x_coord=5, y_coord=0, board=game)
+        cell_51 = Cell.objects.get(x_coord=5, y_coord=1, board=game)
+        cell_52 = Cell.objects.get(x_coord=5, y_coord=2, board=game)
+        cell_53 = Cell.objects.get(x_coord=5, y_coord=3, board=game)
+        cell_54 = Cell.objects.get(x_coord=5, y_coord=4, board=game)
+        cell_55 = Cell.objects.get(x_coord=5, y_coord=5, board=game)
+        cell_56 = Cell.objects.get(x_coord=5, y_coord=6, board=game)
+        cell_57 = Cell.objects.get(x_coord=5, y_coord=7, board=game)
+
+        cell_60 = Cell.objects.get(x_coord=6, y_coord=0, board=game)
+        cell_61 = Cell.objects.get(x_coord=6, y_coord=1, board=game)
+        cell_62 = Cell.objects.get(x_coord=6, y_coord=2, board=game)
+        cell_63 = Cell.objects.get(x_coord=6, y_coord=3, board=game)
+        cell_64 = Cell.objects.get(x_coord=6, y_coord=4, board=game)
+        cell_65 = Cell.objects.get(x_coord=6, y_coord=5, board=game)
+        cell_66 = Cell.objects.get(x_coord=6, y_coord=6, board=game)
+        cell_67 = Cell.objects.get(x_coord=6, y_coord=7, board=game)
+
+        cell_70 = Cell.objects.get(x_coord=7, y_coord=0, board=game)
+        cell_71 = Cell.objects.get(x_coord=7, y_coord=1, board=game)
+        cell_72 = Cell.objects.get(x_coord=7, y_coord=2, board=game)
+        cell_73 = Cell.objects.get(x_coord=7, y_coord=3, board=game)
+        cell_74 = Cell.objects.get(x_coord=7, y_coord=4, board=game)
+        cell_75 = Cell.objects.get(x_coord=7, y_coord=5, board=game)
+        cell_76 = Cell.objects.get(x_coord=7, y_coord=6, board=game)
+        cell_77 = Cell.objects.get(x_coord=7, y_coord=7, board=game)
+        context = {
+            'game_id': game_id,
+
+            'cell_00': cell_00,
+            'cell_01': cell_01,
+            'cell_02': cell_02,
+            'cell_03': cell_03,
+            'cell_04': cell_04,
+            'cell_05': cell_05,
+            'cell_06': cell_06,
+            'cell_07': cell_07,
+
+            'cell_10': cell_10,
+            'cell_11': cell_11,
+            'cell_12': cell_12,
+            'cell_13': cell_13,
+            'cell_14': cell_14,
+            'cell_15': cell_15,
+            'cell_16': cell_16,
+            'cell_17': cell_17,
+
+            'cell_20': cell_20,
+            'cell_21': cell_21,
+            'cell_22': cell_22,
+            'cell_23': cell_23,
+            'cell_24': cell_24,
+            'cell_25': cell_25,
+            'cell_26': cell_26,
+            'cell_27': cell_27,
+
+            'cell_30': cell_30,
+            'cell_31': cell_31,
+            'cell_32': cell_32,
+            'cell_33': cell_33,
+            'cell_34': cell_34,
+            'cell_35': cell_35,
+            'cell_36': cell_36,
+            'cell_37': cell_37,
+
+            'cell_40': cell_40,
+            'cell_41': cell_41,
+            'cell_42': cell_42,
+            'cell_43': cell_43,
+            'cell_44': cell_44,
+            'cell_45': cell_45,
+            'cell_46': cell_46,
+            'cell_47': cell_47,
+
+            'cell_50': cell_50,
+            'cell_51': cell_51,
+            'cell_52': cell_52,
+            'cell_53': cell_53,
+            'cell_54': cell_54,
+            'cell_55': cell_55,
+            'cell_56': cell_56,
+            'cell_57': cell_57,
+
+            'cell_60': cell_60,
+            'cell_61': cell_61,
+            'cell_62': cell_62,
+            'cell_63': cell_63,
+            'cell_64': cell_64,
+            'cell_65': cell_65,
+            'cell_66': cell_66,
+            'cell_67': cell_67,
+
+            'cell_70': cell_70,
+            'cell_71': cell_71,
+            'cell_72': cell_72,
+            'cell_73': cell_73,
+            'cell_74': cell_74,
+            'cell_75': cell_75,
+            'cell_76': cell_76,
+            'cell_77': cell_77,
+
+        }
+    next_page = 'TeraChess/ '
+    return render(request, 'TeraChess/html/gameUI.html', context)

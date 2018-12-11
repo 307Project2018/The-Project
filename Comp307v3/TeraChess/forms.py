@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-from .models import PieceSet, Piece, Player, PieceInstance, BoardInstance, Cell
+from .models import PieceSet, Piece, Player, PieceInstance, BoardInstance, Cell, Move
 
 
 class UserForm(forms.ModelForm):
@@ -44,3 +44,8 @@ class SecondPlayerForm(forms.ModelForm):
         fields = ['game_id']
 
 
+class MoveForm(forms.ModelForm):
+
+    class Meta:
+        model = Move
+        fields = ['x_coord_old', 'y_coord_old', 'x_coord_new', 'y_coord_new', 'game_id']
