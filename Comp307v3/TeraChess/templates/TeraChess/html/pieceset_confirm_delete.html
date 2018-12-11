@@ -1,13 +1,10 @@
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Delete Movie</title>
-</head>
-<body>
-
+{% extends 'TeraChess/html/template.html' %}
+{% block content %}
+{% load staticfiles %}
+<br>
 <h1>Piece-Set {{ piece_set }} successfully deleted</h1>
-<a href="/TeraChess/loginSignUp">Return to Piece-Sets</a>
-
-
-</body>
-</html>
+<a href="/TeraChess/collection">Return to Piece-Sets</a>
+<div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+    <img src="https://cdn3.iconfinder.com/data/icons/pictomisc/100/sadface-512.png">
+</div>
+{% endblock %}
