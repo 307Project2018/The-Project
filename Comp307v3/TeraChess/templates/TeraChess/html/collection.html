@@ -3,19 +3,27 @@
 {% block content %}
 {% if request.user.is_authenticated %}
 {% if profile.pieceset_set %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'TeraChess/collection.css' %}"/>
+<div class="container">
+    <div class="setContainer">
     {% for piece_set in all_pieces %}
-        <a  href = "/TeraChess/PieceSet/{{ piece_set.id }}/">
-            {{ piece_set.name }} </a> --------------
-        <a href = "/TeraChess/update/{{ piece_set.id }}"> Make {{ piece_set.name }} your main board</a> <br>
+        <div class="setGridItem"><a class="pieceSet" href = "/TeraChess/PieceSet/{{ piece_set.id }}/">
+            {{ piece_set.name }} </a></div><div class="setGridItem"><a class="pieceSet" href = "/TeraChess/update/{{ piece_set.id }}"> Make Main</a></div>
+
     {% endfor %}
-    <br>
+    </div>
 {% else %}
-    there are no pieces to display<br>
+    <div>
+        there are no pieces to display<br>
+    </div>
 {% endif %}
-<br>
+<div class="menuContainer">
     <a href="/TeraChess/Piece/add/">Add a Piece to an existing Piece-Set</a> <br>
     <a href="/TeraChess/PieceSet/add/">Create a new Piece-Set</a><br>
     <a href="/TeraChess/DeletePieceSet">Delete an existing Piece-Set</a>
+</div>
+</div>
 {% endif %}
 
 {% if not request.user.is_authenticated %}
