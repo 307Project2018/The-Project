@@ -18,7 +18,7 @@ body{
 .mainContent{
 	padding-left:2%;
 	padding-right:2%;
-	width:100%;
+	width:96%;
 }
 
 .menuBar{
@@ -32,18 +32,19 @@ body{
 	width:100%;
 }
 .menuBarItem{
-	font-size:40;
+	font-size:40px;
 	padding:5px;
 	border-right:2px solid black;
 }
 .mainContent{
 	background-color:teal;
 	position:relative;
-	width:100%;
+	width:96%;
 }
 .bottomBanner{
     display:grid;
     grid-template-columns:50% 50%;
+    font-size:20px;
 	background-color:blue;
 	position:relative;
 	height:100px;
@@ -72,4 +73,18 @@ a.menulink:visited{
 		
 a.menulink:hover{
 	color:yellow;
+}
+
+a.bottomLinks:link{
+    color:black;
+    text-decoration:underline;
+}
+
+a.bottomLinks:visited{
+    color:black;
+    text-decoration:underline;
+}
+
+a.bottomLinks:hover{
+    color:yellow;
 }
