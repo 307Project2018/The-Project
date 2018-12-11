@@ -1,10 +1,19 @@
 {% extends 'TeraChess/html/template.html' %}
 
 {% block content %}
-<form method="post">{% csrf_token %}
+<br>
+<div style="display:grid; height:70%; grid-template-columns:30% 70%;">
+<div style="grid-row:1 / span 3;"><form method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save">
 </form>
-<a href="/TeraChess/loginSignUp"> Nevermind</a>
+<a style="color:black; font-size:20" href="/TeraChess/collection">Nevermind</a>
+    </div>
+    <div style="grid-row:1 / span 3;">
+        <img style="width:100%; height:100%;" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/intermediary/f/3def23e8-e5d0-4ca5-b2ac-2066b83f14ad/dcu56sn-6b0425fb-ff78-496e-86ed-e09b35786a09.png">
+    </div>
+</div>
+<br>
+<br>
 {% endblock %}
 
