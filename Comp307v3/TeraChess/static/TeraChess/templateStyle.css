@@ -39,7 +39,7 @@ body{
 .mainContent{
 	background-color:teal;
 	position:relative;
-	width:100%;
+	width:96%;
 }
 .bottomBanner{
     display:grid;
