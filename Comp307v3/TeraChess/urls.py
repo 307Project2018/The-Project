@@ -27,7 +27,11 @@ urlpatterns = [
     url(r'^Piece/add/$', views.PieceInstanceFormView.as_view(), name='PieceInstanceAdd'),
     url(r'^logout$', views.logoutview, name='logout'),
     url(r'^login$', views.loginview, name='login'),
-    url(r'^update/(?P<piece_set_id>[0-9]+)$', views.piecesetupdate, name='update')
+    url(r'^update/(?P<piece_set_id>[0-9]+)$', views.piecesetupdate, name='update'),
+    url(r'^mygames$', views.displayGames, name='mygames'),
+    url(r'^GameTime/(?P<game_id>[a-zA-Z0-9_]+)$', views.gametime, name='gametime'),
+    url(r'^nextmove$', views.NextMoveFormView.as_view(), name='next'),
+    url(r'^ViewGame/(?P<game_id>[a-zA-Z0-9_]+)$', views.viewgame, name='viewgame')
 ]
 
 # request.user.pieceset_set.get(name=

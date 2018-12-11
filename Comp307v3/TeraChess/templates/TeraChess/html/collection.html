@@ -3,35 +3,23 @@
 {% block content %}
 {% if request.user.is_authenticated %}
 {% if profile.pieceset_set %}
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'TeraChess/collection.css' %}"/>
-<div class="container">
-    <div><div class="setContainer">
     {% for piece_set in all_pieces %}
-        <div class="setGridItem"><a class="pieceSet" href = "/TeraChess/PieceSet/{{ piece_set.id }}/">
-            {{ piece_set.name }} </a></div><div class="setGridItem"><a class="pieceSet" href = "/TeraChess/update/{{ piece_set.id }}"> Make Main</a></div>
-
+        <a  href = "/TeraChess/PieceSet/{{ piece_set.id }}/">
+            {{ piece_set.name }} </a> --------------
+        <a href = "/TeraChess/update/{{ piece_set.id }}"> Make {{ piece_set.name }} your main board</a> <br>
     {% endfor %}
-    </div></div>
+    <br>
 {% else %}
-    <div>
-        there are no pieces to display<br>
-    </div>
+    there are no pieces to display<br>
 {% endif %}
-<div class="menuContainer">
-    <a class="pieceSetalt" href="/TeraChess/Piece/add/">Add a Piece to an existing Piece-Set</a><br>
-    <a class="pieceSetalt" href="/TeraChess/PieceSet/add/">Create a new Piece-Set</a><br>
-    <a class="pieceSetalt" href="/TeraChess/DeletePieceSet">Delete an existing Piece-Set</a>
-</div>
-</div>
+<br>
+    <a href="/TeraChess/Piece/add/">Add a Piece to an existing Piece-Set</a> <br>
+    <a href="/TeraChess/PieceSet/add/">Create a new Piece-Set</a><br>
+    <a href="/TeraChess/DeletePieceSet">Delete an existing Piece-Set</a>
 {% endif %}
 
 {% if not request.user.is_authenticated %}
-    <br>
-<div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
-    <p style="font-size:20px">You are not logged in. Please log in and return to this page.</p><br>
-    <img src="https://cdn3.iconfinder.com/data/icons/pictomisc/100/sadface-512.png">
-</div>
+    You are not logged in. Please log in and return to this page.
 {% endif %}
 
 {% endblock %}
