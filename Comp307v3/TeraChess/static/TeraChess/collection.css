@@ -39,16 +39,16 @@ a.pieceSet:visited{
     text-decoration:none;
 }
 
-a.pieceSet2:link{
+a.pieceSetalt:link{
     font-size:30px;
     color:black;
     text-decoration:none;
 }
-a.pieceSet2:hover{
+a.pieceSetalt:hover{
     color:yellow;
 }
 
-a.pieceSet2:visited{
+a.pieceSetalt{
     color:black;
     text-decoration:none;
 }
