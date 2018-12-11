@@ -6,22 +6,22 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'TeraChess/collection.css' %}"/>
 <div class="container">
-    <div class="setContainer">
+    <div><div class="setContainer">
     {% for piece_set in all_pieces %}
         <div class="setGridItem"><a class="pieceSet" href = "/TeraChess/PieceSet/{{ piece_set.id }}/">
             {{ piece_set.name }} </a></div><div class="setGridItem"><a class="pieceSet" href = "/TeraChess/update/{{ piece_set.id }}"> Make Main</a></div>
 
     {% endfor %}
-    </div>
+    </div></div>
 {% else %}
     <div>
         there are no pieces to display<br>
     </div>
 {% endif %}
 <div class="menuContainer">
-    <a href="/TeraChess/Piece/add/">Add a Piece to an existing Piece-Set</a> <br>
-    <a href="/TeraChess/PieceSet/add/">Create a new Piece-Set</a><br>
-    <a href="/TeraChess/DeletePieceSet">Delete an existing Piece-Set</a>
+    <a class="pieceSet2" href="/TeraChess/Piece/add/">Add a Piece to an existing Piece-Set</a> <br>
+    <a class="pieceSet2" href="/TeraChess/PieceSet/add/">Create a new Piece-Set</a><br>
+    <a class="pieceSet2" href="/TeraChess/DeletePieceSet">Delete an existing Piece-Set</a>
 </div>
 </div>
 {% endif %}
