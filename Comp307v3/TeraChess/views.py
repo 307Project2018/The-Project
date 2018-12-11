@@ -8,7 +8,7 @@ from .forms import UserForm, PieceSetForm, PieceInstanceForm, BoardForm, SecondP
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 import random
-import re
+
 
 def account(request):
     return render(request, 'TeraChess/html/account.html')
@@ -21,6 +21,7 @@ def build(request):
 def collection(request):
     context = {}
     if request.user.is_authenticated:
+
         profile = request.user.profile
         all_pieces = PieceSet.objects.filter(player=profile)
         context = {
@@ -45,6 +46,7 @@ def learn(request):
 def loginSignUp(request):
     context = {}
     if request.user.is_authenticated:
+
         profile = request.user.profile
         all_pieces = PieceSet.objects.filter(player=profile)
         context = {
@@ -75,8 +77,8 @@ def piecesetupdate(request, piece_set_id):
 
 
 def piece_details(request, piece_id):
-    current_piece = PieceInstance.objects.get(pk=piece_id)
-    return render(request, 'TeraChess/html/piece_details.html', {'piece_instance': current_piece})
+        current_piece = PieceInstance.objects.get(pk=piece_id)
+        return render(request, 'TeraChess/html/piece_details.html', {'piece_instance': current_piece})
 
 
 def play(request):
@@ -101,6 +103,7 @@ def PieceSetDelete(request, piece_set_id):
 def deletePieceSet(request):
     context = {}
     if request.user.is_authenticated:
+
         profile = request.user.profile
         all_pieces = PieceSet.objects.filter(player=profile)
         context = {
@@ -499,61 +502,6 @@ class NextMoveFormView(View):
             new_cell = game.cell_set.get(x_coord=x_new, y_coord=y_new)
 
             def is_valid_move(prev_cell, next_cell):
-                if start == end:
-                    return 0
-                piece_to_move = board[start[0]][start[1]]
-                # query database about piece info, in particular the move_set
-                move_set_ex = "(0,4),(4,3),(5,6),(0,3)"
-                move_set = Player.objects.filter(name=)
-                movement_type = "crest"  # crest, diagonal,...
-                possible_ends = re.findall(r"\((.,.)\)", move_set)
-                possible_ends_tuples = [tuple(int(s) for s in i.split(',')) for i in possible_ends]
-
-                # check if possible to move there
-                possible_to_move = 0
-                for x in possible_ends_tuples:
-                    if (x[0] + start[0], x[1] + start[1]) == end:
-                        print(x)
-                        possible_to_move = 1
-
-                if possible_to_move == 0:
-                    return 0
-
-                # check if pieces exist between start and end
-
-                diff = (end[0] - start[0], end[1] - start[1])
-
-                # crest movement
-                if diff[0] == 0 or diff[1] == 0:
-                    min_v = min(diff[0], diff[1])
-                    max_v = max(diff[0], diff[1])
-                    if diff[0] == 0:
-                        for x in range(min_v + 1, max_v):
-                            if board[start[0]][x] is not None:
-                                return 0
-                    else:
-                        for x in range(min_v + 1, max_v):
-                            if board[x][start[0]] is not None:
-                                return 0
-
-                    possible_to_move = 1
-
-                # diagonal movement
-                if abs(diff[0]) == abs(diff[1]):
-                    a = (diff[0] * 1 / abs(diff[0]), diff[1] * 1 / abs(diff[1]))
-                    y = lambda z: (a[0] * z + start[0], a[1] * z + start[1])
-                    for x in range(1, abs(diff[1])):
-                        if board[y(x)[0]][y(x)[1]] is not None:
-                            return 0
-                    possible_to_move = 1
-
-                end_location = board[end[0]][end[1]]
-                if end_location is not None:
-                    endPiece = board[end[0]][end[1]]
-                # query database about endPiece
-                # check if enemy piece belongs to enemy player return 2
-                # if piece does not belong to enemy player return 0
-                return 2
                 return True
 
             if is_valid_move(old_cell, new_cell):
