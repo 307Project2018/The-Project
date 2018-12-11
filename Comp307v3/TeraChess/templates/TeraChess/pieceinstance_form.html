@@ -1,20 +1,11 @@
 {% extends 'TeraChess/html/template.html' %}
 
 {% block content %}
-<div style="display:grid; height:60%; grid-template-columns:30% 70%;">
-<div><br>
-<form method="post">{% csrf_token %}<br>
-    {{ form.as_p }}<br>
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
     <input type="submit" value="Save">
 </form>
-<br>
-</div>
-
-    <div style="text-align:center">
-        <br>
-        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/intermediary/f/3def23e8-e5d0-4ca5-b2ac-2066b83f14ad/dcu546a-c19cb0be-72fd-48d5-8550-59ff4ebd22fa.png">
-    </div>
-</div>
 {% endblock %}
 
 
